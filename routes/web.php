@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test-jquery', function () {
+    return view('test-jquery');
+});
+
+Route::get('/docs/api', function () {
+    return view('vendor/l5-swagger/index');
+});
