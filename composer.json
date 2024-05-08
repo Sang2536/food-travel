@@ -12,6 +12,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laravelcollective/html": "^6.4",
+        "mongodb/laravel-mongodb": "4.2",
         "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {

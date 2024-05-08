@@ -171,8 +171,10 @@ return [
 
         //...
         App\Providers\Filament\AdminPanelProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
-        L5Swagger\L5SwaggerServiceProvider::class,
+        \Collective\Html\HtmlServiceProvider::class,
+        \MongoDB\Laravel\MongoDBServiceProvider::class,
+        \L5Swagger\L5SwaggerServiceProvider::class,
+        \Yajra\DataTables\DataTablesServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -188,6 +190,10 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+
+        //...
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ])->toArray(),
 
 ];
