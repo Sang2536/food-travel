@@ -2,42 +2,42 @@
 
 namespace App\Models;
 
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
-// use Illuminate\Foundation\Auth\User as Authenticatable;
-use MongoDB\Laravel\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+// use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
-class User extends Authenticatable
+class Account extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    protected  $collection = 'users';
+    protected  $collection = 'accounts';
 
     protected $fillable = [
-        'uid',
-        'name',
+        'acc_id',
+        'qr_code',
+        'display_name',
+        'login_name',
         'email',
         'password',
-        'email_verified_at',
+        'remember_token',
         'avatar',
-        'roles',
+        'address',
+        'phone',
+        'status',
+        'descr',
         'logs',
         'settings',
     ];
 
     protected $hidden = [
+        'login_name',
         'password',
         'remember_token',
     ];
 
     protected $type = [
-        'email_verified_at' => 'date',
-        'roles' => 'object',
         'logs' => 'object',
         'settings' => 'object',
     ];
