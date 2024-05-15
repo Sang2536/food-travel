@@ -127,12 +127,22 @@
     "currency_unit": "VND"
     "tran_date": "2024-04-14 10:15:28"
     "products": {
-        "pid": "PID00000001",
-        "name": "Thùng mì tôm Hảo Hảo",
-        "price_purchase": 105000,
-        "price_sell": 135000,
-        "currency_unit": "VND"
-        "quantity": 2,
+        {
+            "pid": "PID00000001",
+            "name": "Thùng mì tôm Hảo Hảo",
+            "price_purchase": 105000,
+            "price_sell": 135000,
+            "currency_unit": "VND"
+            "quantity": 2,
+        },
+        {
+            "pid": "PID00000002",
+            "name": "Cahi nước ngọt CocaCola lớn",
+            "price_purchase": 100000,
+            "price_sell": 115000,
+            "currency_unit": "VND"
+            "quantity": 6,
+        }
     },
     "setting": {}
 }

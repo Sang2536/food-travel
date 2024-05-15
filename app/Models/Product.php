@@ -18,6 +18,7 @@ class Product extends Model
         'qr_code',
         'name',
         'avatar',
+        'status',
         'type',
         'category',
         'brand',
@@ -28,6 +29,7 @@ class Product extends Model
         'media',
         'rates',
         'settings',
+        'created_by',
     ];
 
     protected $hidden = [];

@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use stdClass;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
@@ -44,10 +43,6 @@ class AccountFactory extends Factory
                 "2024-03-25 08:34:02" => fake()->randomElement(['login','logout','change password']),
 
                 // (string) fake()->dateTime() => fake()->randomElement(['login','logout','change password']),
-                // (string) fake()->dateTime() => fake()->randomElement(['order','sell','add product to cart','remove product to cart']),
-                // (string) fake()->dateTime() => fake()->randomElement(['change profile','change password','setting account']),
-                // (string) fake()->dateTime() => fake()->randomElement(['rating product','review product','copy link product']),
-                // (string) fake()->dateTime() => fake()->randomElement(['login','logout']),
             ],
             'settings' => (object) [],
         ];
