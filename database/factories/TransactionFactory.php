@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Monolog\Formatter\MongoDBFormatter;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Transaction>
@@ -17,7 +16,7 @@ class TransactionFactory extends Factory
      */
     public function definition(): array
     {
-        $date = new MongoDBFormatter();
+        $date = fake()->dateTime();
 
         return [
             'trans_id'  =>  fake()->unique()->regexify('TRS[0-9]{8}'),
@@ -26,7 +25,7 @@ class TransactionFactory extends Factory
             'status'    =>  fake()->randomElement(['done','order','return','delivering']),
             'total_amount'  =>  rand(10, 100) * 10000,
             'currency_unit' =>  "VND",
-            'tran_date' =>  fake()->dateTime(),
+            'tran_date' =>  $date,
             'products'  =>  (object) [
                 fake()->unique()->regexify('PID[0-9]{8}')   =>  [
                     'pid'   =>  fake()->unique()->regexify('PID[0-9]{8}'),

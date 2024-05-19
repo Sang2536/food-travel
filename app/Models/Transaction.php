@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Casts\DateCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Eloquent\Model;
 
@@ -24,8 +25,12 @@ class Transaction extends Model
 
     protected $hidden = [];
 
+    protected $casts = [
+        'tran_date' => DateCustomCast::class,
+    ];
+
     protected $type = [
-        'tran_date' => 'date',
+        // 'tran_date' => DateCustomCast::class,
         'total_amount' => 'decimal',
         'products' => 'object',
         'settings' => 'object',

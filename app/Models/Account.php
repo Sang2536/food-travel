@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
+use App\Models\Casts\PhotoUrlCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
 // use Illuminate\Database\Eloquent\Model;
 use MongoDB\Laravel\Eloquent\Model;
 
@@ -37,12 +36,12 @@ class Account extends Model
         'remember_token',
     ];
 
+    protected $casts = [
+        'avatar' => PhotoUrlCustomCast::class,
+    ];
+
     protected $type = [
         'logs' => 'object',
         'settings' => 'object',
     ];
-
-    public function avatarUrl() : CastsAttribute {
-        return CastsAttribute::get(fn() => Storage::disk('public')->url($this->avatar));
-    }
 }

@@ -24,6 +24,18 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         $name = fake()->name();
+        $logFirst = (object) [
+            '1976-08-06T17:09:34.000Z' => (object) [
+                'action' => 'update',
+                'model' => 'products',
+                'payload' => 'change product has id: PID189263547',
+            ],
+        ];
+        $logSecond = (object) [
+            '1999-12-06T08:09:34.000Z' => (object) [
+                'action' => 'login'
+            ],
+        ];
 
         return [
             'acc_id'  =>  fake()->unique()->regexify('AID[0-9]{8}'),
@@ -42,6 +54,17 @@ class AccountFactory extends Factory
                 "2024-03-25 08:16:57" => fake()->randomElement(['login','logout','change password']),
                 "2024-03-25 08:34:02" => fake()->randomElement(['login','logout','change password']),
 
+                /*  (object) [
+                    '1976-08-06T17:09:34.000Z' => (object) [
+                        'action' => 'update',
+                        'model' => 'products',
+                        'payload' => 'change product with id: PID189263547',
+                    ],
+                    '1999-12-06T08:09:34.000Z' => (object) [
+                        'action' => 'login',
+                    ],
+                ]
+                */
                 // (string) fake()->dateTime() => fake()->randomElement(['login','logout','change password']),
             ],
             'settings' => (object) [],

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
+use App\Models\Casts\PhotoUrlCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Contact extends Model
@@ -30,11 +29,11 @@ class Contact extends Model
 
     protected $hidden = [];
 
+    protected $casts = [
+        'avatar' => PhotoUrlCustomCast::class,
+    ];
+
     protected $type = [
         'settings' => 'object',
     ];
-
-    public function avatarUrl() : CastsAttribute {
-        return CastsAttribute::get(fn() => Storage::disk('public')->url($this->avatar));
-    }
 }
