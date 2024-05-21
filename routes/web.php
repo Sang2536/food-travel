@@ -33,18 +33,24 @@ Route::get('/docs/api', function () {
     return view('vendor/l5-swagger/index');
 });
 
-Route::resource('user', 'App\Http\Controllers\UserController::class');
+//  template
+Route::get('error', 'App\Http\Controllers\ErrorController@error');
 
-Route::resource('account', 'App\Http\Controllers\AccountController::class');
+Route::get('document', 'App\Http\Controllers\DocsController@index');
 
-Route::resource('contact', 'App\Http\Controllers\ContactController::class');
+//  sidebar
+Route::resource('user', 'App\Http\Controllers\UserController')->parameters(['user' => 'uid']);
 
-Route::resource('product', 'App\Http\Controllers\ProductController::class');
+Route::resource('account', 'App\Http\Controllers\AccountController');
 
-Route::resource('transaction', 'App\Http\Controllers\TransactionController::class');
+Route::resource('contact', 'App\Http\Controllers\ContactController');
 
-Route::get('systems', 'App\Http\Controllers\SystemController@index');
-Route::put('systems/update', 'App\Http\Controllers\SystemController@update');
-Route::get('systems/tutorial', 'App\Http\Controllers\SystemController@tutorial');
+Route::resource('product', 'App\Http\Controllers\ProductController');
+
+Route::resource('transaction', 'App\Http\Controllers\TransactionController');
+
+Route::get('system', 'App\Http\Controllers\SystemController@index');
+Route::put('system/update', 'App\Http\Controllers\SystemController@update');
+Route::get('system/tutorial', 'App\Http\Controllers\SystemController@tutorial');
 
 

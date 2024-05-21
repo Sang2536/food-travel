@@ -1,9 +1,16 @@
-@extends('app')
-@section('title', 'Create contact')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="w-full">
-    <h1>Docs</h1>
+        <title>App - Document</title>
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="antialiased">
+
+    <h1 class="py-8 px-4 text-5xl font-extrabold">Document -Tutorial</h1>
 
     <section class="bg-white dark:bg-gray-900">
         <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
@@ -18,11 +25,6 @@
             </div>
         </div>
     </section>
-</div>
-@endsection
+    </body>
+</html>
 
-@section('javascript')
-<script type="text/javascript">
-    // alert("hello");
-</script>
-@endsection

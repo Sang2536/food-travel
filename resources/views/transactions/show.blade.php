@@ -1,6 +1,14 @@
-<div>
+@extends('app')
+@section('title', 'Transaction detail')
+
+@section('content')
+<div class="w-full">
     <h1>Show Transaction</h1>
-    <p>
-        If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius
-    </p>
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    // alert("hello");
+</script>
+@endsection

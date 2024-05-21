@@ -1,6 +1,14 @@
-<div>
-    <h1>Show Account</h1>
-    <p>
-        It is not the man who has too little, but the man who craves more, that is poor. - Seneca
-    </p>
+@extends('app')
+@section('title', 'Detail account')
+
+@section('content')
+<div class="w-full">
+    <h1>Show Accoun</h1>
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    // alert("hello");
+</script>
+@endsection
