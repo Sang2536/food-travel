@@ -10,10 +10,10 @@
             <!-- Language & Theme -->
             <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                 {{-- language --}}
-                @include('components.navbar_partials.language')
+                @include('layouts.navbar_partials.language')
 
                 {{-- language --}}
-                @include('components.navbar_partials.theme')
+                @include('layouts.navbar_partials.theme')
             </div>
 
             <!-- Account -->
@@ -23,9 +23,9 @@
                     Administrator
                 </button>
             </div>
-        
+
             <!-- Menu -->
-            @include('components.navbar_partials.menu')
+            @include('layouts.navbar_partials.menu')
         </div>
     </nav>
 </div>

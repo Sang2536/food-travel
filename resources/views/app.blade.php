@@ -9,14 +9,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        @include('components.navbar')
+        @include('layouts.navbar')
 
         <div class="flex w-full mt-20">
-            @include('components.sidebar')
+            @include('layouts.sidebar')
 
             <div class="flex-initial w-10/12 pl-12 sm:ml-12 h-screen">
                 @yield('content')
-                {{-- @include('components.content') --}}
+                {{-- @include('layouts.content') --}}
             </div>
         </div>
 
