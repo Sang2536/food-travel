@@ -21,12 +21,8 @@ Route::get('/info', function () {
     phpinfo();
 });
 
-Route::get('/test-jquery', function () {
-    $date = now();
-    $dateNew = $date->format('Y-m-d\TH:i:s.v\Z');
-
-    dd($date, $dateNew);
-    return view('test-jquery');
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/docs/api', function () {
@@ -41,7 +37,7 @@ Route::get('document', 'App\Http\Controllers\DocsController@index');
 //  sidebar
 Route::resource('user', 'App\Http\Controllers\UserController')->parameters(['user' => 'uid']);
 
-Route::resource('account', 'App\Http\Controllers\AccountController');
+Route::resource('account', 'App\Http\Controllers\AccountController')->parameters(['account' => 'aid']);
 
 Route::resource('contact', 'App\Http\Controllers\ContactController');
 
