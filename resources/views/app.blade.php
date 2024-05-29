@@ -12,14 +12,16 @@
         @include('layouts.navbar')
 
         <div class="flex w-full mt-20">
-            @include('layouts.sidebar')
+            <div class="w-2/12">
+                @include('layouts.sidebar')
+            </div>
 
             <div class="flex-initial w-10/12 pl-12 sm:ml-12 h-screen">
                 @yield('content')
-                {{-- @include('layouts.content') --}}
             </div>
         </div>
 
         @yield('javascript')
+        <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     </body>
 </html>
