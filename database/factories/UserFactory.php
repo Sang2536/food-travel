@@ -25,19 +25,31 @@ class UserFactory extends Factory
     {
         $randNum = random_int(1, 3);
         $optionRand = [
-            [
+            (object) [
                 'name' => 'admin',
                 'permissions' => ['create','read','update', 'delete', 'setting', 'system'],
             ],
-            [
+            (object) [
                 'name' => 'tester',
                 'permissions' => ['create','read','update', 'delete', 'setting'],
             ],
-            [
+            (object) [
                 'name' => 'viewer',
                 'permissions' => ['read'],
             ],
         ];
+
+        $logs = [];
+        for ($i=0; $i < $randNum; $i++) {
+            $date = fake()->dateTime();
+            $item = (object) [
+                'date' => $date->format('Y-m-d\TH:i:s.v\Z'),
+                'action' => fake()->randomElement(['login','logout','change password','insert','update','destroy']),
+                'model' => fake()->randomElement(['','contacts','products','transactions','users']),
+            ];
+
+            array_push($logs, $item);
+        }
 
         return [
             'uid'  =>  fake()->unique()->regexify('UID[0-9]{8}'),
@@ -46,16 +58,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'status' => fake()->randomElement(['online','offline','locked']),
             'avatar' => '',
-            'roles' => (object) [
-                'name' => $optionRand[$randNum - 1]['name'],
-                'permissions' => $optionRand[$randNum -1]['permissions'],
-            ],
-            'logs' => (object) [
-                "2024-03-25 08:16:57" => fake()->randomElement(['login','logout']),
-                "2024-03-25 08:18:34" => fake()->randomElement(['update product','create transaction','update contact']),
-                "2024-03-25 08:22:45" => fake()->randomElement(['update product','create transaction','update contact']),
-            ],
+            'roles' => $optionRand[$randNum - 1],
+            'logs' => (object) $logs,
             'settings' => (object) [],
         ];
     }

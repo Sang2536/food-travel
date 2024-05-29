@@ -12,7 +12,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users/index');
+        $users = User::all();
+
+        return view(
+            'users/index',
+            ['users' => $users]
+        );
     }
 
     /**
@@ -34,15 +39,30 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uid)
     {
-        return view('users/show');
+        $userLogin = (object) [
+            'uid' => 'UID11111111',
+            'roles' => [
+                'name' => 'admin',
+                'permission' => [],
+            ]
+        ];
+        $user = User::where('uid', $uid)->first();
+
+        return view(
+            'users/show',
+            [
+                'user' => $user,
+                'userLogin' => $userLogin,
+            ]
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uid)
     {
         return view('users/edit');
     }
@@ -58,7 +78,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uid)
     {
         //
     }
