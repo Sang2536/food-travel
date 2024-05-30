@@ -12,7 +12,12 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contacts/index');
+        $contacts = Contact::all();
+
+        return view(
+            'contacts/index',
+            ['contacts' => $contacts]
+        );
     }
 
     /**
@@ -36,7 +41,22 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        return view('contacts/show');
+        $userLogin = (object) [
+            'uid' => 'UID11111111',
+            'roles' => [
+                'name' => 'admin',
+                'permission' => [],
+            ]
+        ];
+        $contact = Contact::where('cid', $id)->first();
+
+        return view(
+            'contacts/show',
+            [
+                'contact' => $contact,
+                'userLogin' => $userLogin
+            ]
+        );
     }
 
     /**
@@ -44,7 +64,12 @@ class ContactController extends Controller
      */
     public function edit(string $id)
     {
-        return view('contacts/edit');
+        $contact = Contact::where('cid', $id)->first();
+
+        return view(
+            'contacts/edit',
+            ['contact' => $contact]
+        );
     }
 
     /**
