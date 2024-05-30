@@ -13,6 +13,6 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
-        Account::factory()->count(30)->create();
+        Account::factory()->count(3)->create();
     }
 }

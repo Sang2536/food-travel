@@ -12,7 +12,12 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('accounts/index');
+        $accounts = Account::all();
+
+        return view(
+            'accounts/index',
+            ['accounts' => $accounts]
+        );
     }
 
     /**
@@ -36,7 +41,12 @@ class AccountController extends Controller
      */
     public function show(string $id)
     {
-        return view('accounts/show');
+        $account = Account::where('acc_id', $id)->first();
+
+        return view(
+            'accounts/show',
+            ['account' => $account]
+        );
     }
 
     /**
