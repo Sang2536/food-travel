@@ -118,10 +118,6 @@
                         <a href="{{ route('contact.show', ['contact' => $contact->cid]) }}" class="font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Show</a>
                         <a href="{{ route('contact.edit', ['contact' => $contact->cid]) }}" class="font-medium px-2 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                         <a href="{{ route('contact.destroy', ['contact' => $contact->cid]) }}" class="font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                        <br />
-                        <button data-modal-target="contact-edit-modal" data-modal-toggle="contact-edit-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                            Toggle modal
-                        </button>
                     </td>
                 </tr>
                 @endforeach
