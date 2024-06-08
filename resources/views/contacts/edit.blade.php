@@ -46,3 +46,8 @@
         </div>
     </div>
 </div>
+
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush

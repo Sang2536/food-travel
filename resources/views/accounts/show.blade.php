@@ -113,10 +113,8 @@
 </div>
 @endsection
 
-@section('javascript')
-<script type="text/javascript">
-    $(document).ready(function () {
-        //  https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js
-    });
-</script>
-@endsection
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush
+

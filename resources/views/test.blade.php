@@ -51,12 +51,9 @@
         <p class="zoomable">
             Click me to zoom
         </p>
-        <script type="text/javascript">
+        <script type="module">
+            console.log($);
             $(document).ready(function(){
-                $("button[data-modal-toggle=form-modal]").click(function() {
-                    $("div#form-modal").toggleClass('hidden');
-                });
-
                 alert("Thanks");
 
                 $(".zoomable").click(function(){

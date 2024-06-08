@@ -60,6 +60,8 @@
     </form>
 </div>
 
-<script type="text/javascript">
-    // alert("hello");
-</script>
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush
+

@@ -6,7 +6,7 @@
 
         <title>App - @yield('title')</title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/main.js'])
     </head>
     <body class="antialiased">
         @include('layouts.navbar')
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        @yield('javascript')
         <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+        @stack('script')
     </body>
 </html>

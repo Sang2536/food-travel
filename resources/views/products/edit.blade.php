@@ -56,8 +56,7 @@
 </div>
 @endsection
 
-@section('javascript')
-<script type="text/javascript">
-    // alert("hello");
-</script>
-@endsection
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush

@@ -5,7 +5,6 @@
 <div class="w-full">
     <h1>Create Transaction</h1>
 
-
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new transaction</h2>
@@ -51,8 +50,9 @@
 </div>
 @endsection
 
-@section('javascript')
-<script type="text/javascript">
-    // alert("hello");
-</script>
-@endsection
+@push('script')
+    
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush

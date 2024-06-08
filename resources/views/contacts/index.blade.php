@@ -132,10 +132,10 @@
 </div>
 @endsection
 
-@section('javascript')
-<script type="text/javascript">
-    $("button[data-modal-toggle=contact-edit-modal]").click(function() {
-        $("div#contact-edit-modal").toggleClass('hidden');
-    });
-</script>
-@endsection
+@push('script')
+    <script type="text/javascript">
+        $("button[data-modal-toggle=contact-edit-modal]").click(function() {
+            $("div#contact-edit-modal").toggleClass('hidden');
+        });
+    </script>
+@endpush
