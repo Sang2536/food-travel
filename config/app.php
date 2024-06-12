@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //...
+        App\Providers\HelperServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         \Collective\Html\HtmlServiceProvider::class,
         \MongoDB\Laravel\MongoDBServiceProvider::class,
