@@ -2,44 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\UserService;
+use App\Helpers\FileHelper;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $users = User::all();
+    protected $userService;
+    protected $fileHelper;
 
-        return view(
-            'users/index',
-            ['users' => $users]
-        );
+    public function __construct(UserService $userService, FileHelper $fileHelper)
+    {
+        $this->userService = $userService;
+        $this->fileHelper = $fileHelper;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index(Request $request)
+    {
+        $users = $this->userService->get();
+
+        if ($request->ajax()) {
+            return $this->userService->getDatatables($users);
+        }
+
+        return view('users/index');
+    }
+
     public function create()
     {
-        return view('users/create');
+        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $uid)
+    public function show(string $id)
     {
         $userLogin = (object) [
             'uid' => 'UID11111111',
@@ -48,7 +47,8 @@ class UserController extends Controller
                 'permission' => [],
             ]
         ];
-        $user = User::where('uid', $uid)->first();
+
+        $user = $this->userService->get($id);
 
         return view(
             'users/show',
@@ -59,10 +59,7 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $uid)
+    public function edit(string $id)
     {
         return view('users/edit');
     }
@@ -72,7 +69,25 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pathPhoto = null;
+        if (! empty($request->hasFile('avatar'))) {
+            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'));
+        }
+
+        try {
+            $user = $this->userService->get($id);
+
+            $user->update([
+                'name' => $request->name,
+                'avatar' => $pathPhoto,
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            return redirect('error/db-operation')->with(compact('error'));
+        }
+
+        return redirect()->back();
     }
 
     /**

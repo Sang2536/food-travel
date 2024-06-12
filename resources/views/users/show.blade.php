@@ -40,28 +40,7 @@
 </div>
 @endsection
 
-@section('javascript')
-<script type="text/javascript">
-    //  Apply to avatar
-    // var applyToAvatar = function (event) {
-    //     let toggleButton = document.getElementById('apply-to-avatar');
-    //     toggleButton.toggleAttribute('data-toggle');
-
-    //     let imgAvatar = document.getElementById('img-avatar');
-
-    //     if (toggleButton.hasAttribute('data-toggle')) {
-    //         var prviewImg = document.getElementById('prview_img').getAttribute('src');
-
-    //         imgAvatar.setAttribute('src', prviewImg);
-
-    //         toggleButton.innerText = 'Remove';
-    //     } else {
-    //         toggleButton.innerText = 'Apply to avatar';
-    //     }
-    // };
-
-    $(document).ready(function () {
-
-    });
-</script>
-@endsection
+@push('script')
+    <script type="text/javascript">
+    </script>
+@endpush

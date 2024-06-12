@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($user->logs as $item)
+            @foreach(array_slice($user->logs, -2, 2) as $item)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="px-6 py-4">{{ $item['date'] }}</td>
                     <td class="px-6 py-4">{{ $item['action'] }}</td>
