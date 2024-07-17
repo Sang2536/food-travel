@@ -1,13 +1,17 @@
 //  User
 $(document).ready(function () {
-    console.log('hello main.js');
+    $.ajaxSetup({
+        headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     //  User table
-    $('table#users-table').DataTable({
+    var userTable = $('table#users-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            type: "GET",
+            method: "GET",
             url: "/user",
             data: function (d) {  }
         },
@@ -25,5 +29,55 @@ $(document).ready(function () {
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action'},
         ],
+    });
+
+    //  destroy user
+    $(document).on('click', 'a.destroy-user', function (e) {
+        e.stopPropagation();
+
+        $('div#destroy-user-modal').show();
+
+        let url = $(this).data('url');
+
+        $('button#submit-destroy-user').one('click', function (e) {
+            $.ajax({
+                method: "DELETE",
+                url: url,
+                dataType: "json",
+                success: function(result) {
+                    if (result.success == true) {
+                        alert(result.data['uid'] + ' - ' + result.data['time']);
+                        userTable.ajax.reload();
+                    } else {
+                        alert('error');
+                    }
+                }
+            });
+        });
+
+        //  hide modal
+        $('button#hide-destroy-user').one('click', function (e) {
+            $('div#destroy-user-modal').hide();
+        });
+    });
+
+    //  clear log
+    $(document).on('click', 'button#clear-log-user', function (e) {
+        const url = $(this).data('url');
+
+        console.log(url);
+
+        $.ajax({
+            method: "DELETE",
+            url: url,
+            dataType: "json",
+            success: function(result) {
+                if (result.success == true) {
+                    alert(result.msg);
+                } else {
+                    alert(result.msg);
+                }
+            }
+        });
     });
 });

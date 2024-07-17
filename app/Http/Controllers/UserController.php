@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use App\Helpers\FileHelper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -19,7 +20,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = $this->userService->get();
+        $users = $this->userService->getAll();
 
         if ($request->ajax()) {
             return $this->userService->getDatatables($users);
@@ -84,7 +85,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             $error = throw $th;
 
-            return redirect('error/db-operation')->with(compact('error'));
+            return redirect('error')->with(compact('error'));
         }
 
         return redirect()->back();
@@ -95,6 +96,22 @@ class UserController extends Controller
      */
     public function destroy(string $uid)
     {
-        //
+        $user = $this->userService->destroy($uid);
+
+        $response = [
+            'success' => false
+        ];
+
+        if($user) {
+            $response = [
+                'success' => true,
+                'data' => [
+                    'uid' => $uid,
+                    'time' => Carbon::now()
+                ],
+            ];
+        }
+
+        return $response;
     }
 }

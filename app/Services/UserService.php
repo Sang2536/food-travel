@@ -4,46 +4,86 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserService {
-    public static function create(array $data): bool
+    public static function get(string $id): Collection|User
     {
-        //Xử lý hàm env()
+        $user = User::where('uid', $id)->first();
+        $key = 'user' . $user->uid;
 
-        return true;
+        Cache::put($key, $user, 120);
+
+        return $user;
     }
 
-    public static function update(array $data, $id): bool
+    public static function getAll(): Collection|User
     {
-        // Xử lý hàm aFunctionName()
-
-        return true;
+        return User::all();
     }
 
-    public static function destroy(string $id): bool
+    public function getCacheUser($key)
     {
-        // Xử lý hàm aFunctionName()
-
-        return true;
-    }
-
-    public static function get(?string $id = null): Collection|User
-    {
-        $user = User::all();
-
-        if (! empty($id)) {
-            $user = User::where('uid', $id)->first();
+        if (! Cache::has($key)) {
+            return 0;
         }
 
+        return Cache::get($key);
+    }
+
+    public static function create(array $data)
+    {
+        //  code test
+    }
+
+    public static function update(array $data, $id)
+    {
+        //  code
+    }
+
+    public function destroy(string $id)
+    {
+        $user = $this->get($id);
+
+        //  remove user
+
         return $user;
     }
 
-    public static function filter(array $data)
+    public static function search()
     {
-        $user = User::all();
+        //  code
+    }
 
-        return $user;
+    public static function filter()
+    {
+        //  code
+    }
+
+    public function clearLog($id)
+    {
+        $res = [
+            'success' => true,
+            'msg' => 'Clear logs is success',
+        ];
+
+        try {
+            $user = User::where('uid', $id);
+
+            $user->update([
+                'logs' => null,
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            $res = [
+                'success' => false,
+                'msg' => 'Error: ' . $error,
+            ];
+        }
+
+        return $res;
     }
 
     public static function getDatatables(Collection|User $users)
@@ -53,7 +93,7 @@ class UserService {
                 'checkbox',
                 function () {
                     return '
-                        <div class="flex items-center px-6 py-4">
+                        <div class="flex items-center py-4">
                             <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         </div>
@@ -64,9 +104,9 @@ class UserService {
                 'action',
                 function ($row) {
                     $html = '
-                        <div class="items-center px-6 py-4">
-                            <a href="' . route('user.show', ['uid' => $row->uid]) . '" class="font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Detail</a>
-                            <a href="' . route('user.destroy', ['uid' => $row->uid]) . '" class="font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Destroy</a>
+                        <div class="items-center py-4">
+                            <a href="' . route('user.show', ['uid' => $row->uid]) . '" class="detail-user font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Detail</a>
+                            <a href="#" type="button" data-url="' . route('user.destroy', ['uid' => $row->uid]) . '" data-modal-target="destroy-user-modal" data-modal-toggle="destroy-user-modal" class="destroy-user font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Destroy</a>
                         </div>
                     ';
 
@@ -84,7 +124,7 @@ class UserService {
                         $color = 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
 
                     $html = '
-                        <div class="items-center px-6 py-4">
+                        <div class="items-center py-4">
                             <span class="ml-2 h-1/2 text-xs font-medium me-2 px-2.5 py-0.5 rounded ' . $color . '">' . $row->roles['name'] . '</span>
                         </div>
                     ';
@@ -96,7 +136,7 @@ class UserService {
                 'name',
                 function ($row) {
                     $html = '
-                        <div class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                        <div class="flex items-center py-4 text-gray-900 whitespace-nowrap dark:text-white">
                             <img class="w-10 h-10 rounded-full" src="' . url($row->avatar_url) . '" alt="' . $row->name . '">
                             <div class="ps-3">
                                 <div class="text-base font-semibold">' . $row->name . '</div>
@@ -123,7 +163,7 @@ class UserService {
                     }
 
                     $html = '
-                        <div class="flex items-center px-6 py-4">
+                        <div class="flex items-center py-4">
                             <div class="h-2.5 w-2.5 rounded-full me-2 ' . $statusColor . '"></div>' . $statusText . '
                         </div'
                     ;
