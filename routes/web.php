@@ -37,6 +37,7 @@ Route::get('document', 'App\Http\Controllers\DocsController@index');
 //  sidebar
 Route::resource('user', 'App\Http\Controllers\UserController')->parameters(['user' => 'uid']);
 Route::delete('user/clear-log/{uid}', 'App\Http\Controllers\UserActionController@clearLog')->name('user.clear-log');
+Route::put('user/create-log/{uid}', 'App\Http\Controllers\UserActionController@createLog')->name('user.create-log');
 
 Route::resource('account', 'App\Http\Controllers\AccountController')->parameters(['account' => 'aid']);
 

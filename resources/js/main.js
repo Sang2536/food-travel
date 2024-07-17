@@ -61,6 +61,26 @@ $(document).ready(function () {
         });
     });
 
+        //  create log
+        $(document).on('click', 'button#create-log-user', function (e) {
+            const url = $(this).data('url');
+
+            console.log(url);
+
+            $.ajax({
+                method: "PUT",
+                url: url,
+                dataType: "json",
+                success: function(result) {
+                    if (result.success == true) {
+                        alert(result.msg);
+                    } else {
+                        alert(result.msg);
+                    }
+                }
+            });
+        });
+
     //  clear log
     $(document).on('click', 'button#clear-log-user', function (e) {
         const url = $(this).data('url');

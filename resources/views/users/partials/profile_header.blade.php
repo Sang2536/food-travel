@@ -1,5 +1,5 @@
 <div class="flex items-center rounded bg-gray-50 text-gray-900 whitespace-nowrap dark:text-white">
-    <img id="img-avatar" class="w-48 h-48 object-fill rounded-full" src="{{ url($user->avatar_url) }}" alt="{{ $user->name }}">
+    <img id="img-avatar" class="m-2 w-48 h-48 object-fill rounded-full bg-gray-100" src="{{ url($user->avatar_url) }}" alt="{{ $user->name }}">
     <div class="ml-6 py-2">
         <div class="flex">
             <div class="text-3xl font-semibold">{{ $user->name }}</div>

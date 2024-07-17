@@ -36,7 +36,7 @@
 
     @include('users.partials.profile_header', ['user' => $user])
 
-    <div class="mt-8 rounded bg-gray-50 text-gray-900 whitespace-nowrap dark:text-white">
+    <div class="my-8 rounded bg-gray-50 text-gray-900 whitespace-nowrap dark:text-white">
         <div class="grid grid-cols-2 divide-x-2">
             @include('users.partials.logs', ['logs' => $user->logs, 'uid' => $user->uid])
             @include('users.edit', ['user' => $user])

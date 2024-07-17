@@ -1,9 +1,15 @@
 <div class="px-4">
     <div class="grid grid-cols-2 divide-x-2">
         <p class="my-4 text-2xl font-semibold">
-            LOGS <br/><small>(3 most recent activities)</small>
+            LOGS <br/><small>(There are {{ ! empty($logs) ? count($logs) : '0' }} records)</small>
         </p>
         <div class="w-full my-4">
+            <button type="button" id="create-log-user" data-url="{{ route('user.create-log', ['uid' => $uid]) }}" class="flex float-right items-center justify-center w-28 h-8 p-2 text-sm font-medium text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clear-all">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 6h12" /><path d="M6 12h12" /><path d="M4 18h12" />
+                </svg>
+                Create logs
+            </button>
             <button type="button" id="clear-log-user" data-url="{{ route('user.clear-log', ['uid' => $uid]) }}" class="flex float-right items-center justify-center w-28 h-8 p-2 text-sm font-medium text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clear-all">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 6h12" /><path d="M6 12h12" /><path d="M4 18h12" />
@@ -40,6 +46,7 @@
 
         <!-- Main modal -->
         <div id="table-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            
             <div class="relative w-full max-w-lg max-h-full">
                 <!-- Main content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">

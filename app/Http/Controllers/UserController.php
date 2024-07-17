@@ -9,13 +9,9 @@ use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
-    protected $userService;
-    protected $fileHelper;
-
-    public function __construct(UserService $userService, FileHelper $fileHelper)
+    public function __construct(protected UserService $userService, protected FileHelper $fileHelper)
     {
-        $this->userService = $userService;
-        $this->fileHelper = $fileHelper;
+        //  code
     }
 
     public function index(Request $request)
@@ -26,7 +22,10 @@ class UserController extends Controller
             return $this->userService->getDatatables($users);
         }
 
-        return view('users/index');
+        $userStatistical = $this->userService->statistical();
+
+        return view('users/index')
+            ->with(['userStatistical' => $userStatistical]);
     }
 
     public function create()

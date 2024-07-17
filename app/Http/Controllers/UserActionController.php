@@ -18,6 +18,13 @@ class UserActionController extends Controller
         //
     }
 
+    public function createLog($id)
+    {
+        $res = $this->userService->createLog($id);
+
+        return $res;
+    }
+
     public function clearLog($id)
     {
         $res = $this->userService->clearLog($id);
