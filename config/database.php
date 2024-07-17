@@ -17,6 +17,12 @@ return [
 
     'default' => env('DB_CONNECTION', 'mongodb'),
 
+    'engines'        => [
+        'eloquent'   => Yajra\DataTables\EloquentDataTable::class,
+        'query'      => Yajra\DataTables\QueryDataTable::class,
+        'collection' => Yajra\DataTables\CollectionDataTable::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections

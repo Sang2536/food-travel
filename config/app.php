@@ -195,6 +195,7 @@ return [
         //...
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'DataTables' => Yajar\DataTables\Facades\DataTables::class,
     ])->toArray(),
 
 ];

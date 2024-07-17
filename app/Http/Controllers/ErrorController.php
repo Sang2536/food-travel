@@ -8,6 +8,11 @@ class ErrorController extends Controller
 {
     public function error()
     {
-        return view('templates/error');
+        $error = 'This is error page.';
+
+        return view(
+            'templates/error', 
+            ['error' => $error]
+        );
     }
 }
