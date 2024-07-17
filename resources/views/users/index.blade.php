@@ -53,6 +53,10 @@
         </table>
     </div>
 </div>
+
+<div>
+    @include('users.partials.modal_destroy')
+</div>
 @endsection
 
 @push('script')
