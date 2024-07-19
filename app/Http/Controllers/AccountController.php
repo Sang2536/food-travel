@@ -14,10 +14,7 @@ class AccountController extends Controller
     {
         $accounts = Account::all();
 
-        return view(
-            'accounts/index',
-            ['accounts' => $accounts]
-        );
+        return view('accounts/index', ['accounts' => $accounts]);
     }
 
     /**

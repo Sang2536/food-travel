@@ -35,6 +35,8 @@ Route::get('error', 'App\Http\Controllers\ErrorController@error');
 Route::get('document', 'App\Http\Controllers\DocsController@index');
 
 //  sidebar
+Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
+
 Route::resource('user', 'App\Http\Controllers\UserController')->parameters(['user' => 'uid']);
 Route::delete('user/clear-log/{uid}', 'App\Http\Controllers\UserActionController@clearLog')->name('user.clear-log');
 Route::put('user/create-log/{uid}', 'App\Http\Controllers\UserActionController@createLog')->name('user.create-log');
@@ -47,7 +49,7 @@ Route::resource('product', 'App\Http\Controllers\ProductController');
 
 Route::resource('transaction', 'App\Http\Controllers\TransactionController');
 
-Route::get('system', 'App\Http\Controllers\SystemController@index');
+Route::get('system', 'App\Http\Controllers\SystemController@index')->name('system.index');
 Route::put('system/update', 'App\Http\Controllers\SystemController@update');
 Route::get('system/tutorial', 'App\Http\Controllers\SystemController@tutorial');
 
