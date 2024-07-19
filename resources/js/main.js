@@ -1,11 +1,14 @@
-//  User
 $(document).ready(function () {
     $.ajaxSetup({
         headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+});
 
+
+//  User
+$(document).ready(function () {
     //  User table
     var userTable = $('table#users-table').DataTable({
         processing: true,
@@ -60,26 +63,26 @@ $(document).ready(function () {
             $('div#destroy-user-modal').hide();
         });
     });
+    
+    //  create log
+    $(document).on('click', 'button#create-log-user', function (e) {
+        const url = $(this).data('url');
 
-        //  create log
-        $(document).on('click', 'button#create-log-user', function (e) {
-            const url = $(this).data('url');
+        console.log(url);
 
-            console.log(url);
-
-            $.ajax({
-                method: "PUT",
-                url: url,
-                dataType: "json",
-                success: function(result) {
-                    if (result.success == true) {
-                        alert(result.msg);
-                    } else {
-                        alert(result.msg);
-                    }
+        $.ajax({
+            method: "PUT",
+            url: url,
+            dataType: "json",
+            success: function(result) {
+                if (result.success == true) {
+                    alert(result.msg);
+                } else {
+                    alert(result.msg);
                 }
-            });
+            }
         });
+    });
 
     //  clear log
     $(document).on('click', 'button#clear-log-user', function (e) {
@@ -99,5 +102,33 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+});
+
+//  User
+$(document).ready(function () {
+    //  User table
+    var accountTable = $('table#accounts-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            method: "GET",
+            url: "/account",
+            data: function (d) {  }
+        },
+        columnDefs: [
+            {
+                "targets": [0, 4],
+                "orderable": false,
+                "searchable": false,
+            },
+        ],
+        columns: [
+            {data: 'checkbox', name: 'checkbox'},
+            {data: 'account', name: 'account'},
+            {data: 'info', name: 'info'},
+            {data: 'status', name: 'status'},
+            {data: 'action', name: 'action'},
+        ],
     });
 });

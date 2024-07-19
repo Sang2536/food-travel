@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
 
-class UserService {
+class StorageService {
     public function saveCache($key, $data, $setTime = null) {
         if (! isset($setTime))
             Cache::get($key, $data);

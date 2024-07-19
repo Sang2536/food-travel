@@ -24,7 +24,7 @@
             </button>
         </div>
     </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table id="accounts-table" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
@@ -33,14 +33,14 @@
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                     </div>
                 </th>
-                <th scope="col" class="px-6 py-3">Name</th>
+                <th scope="col" class="px-6 py-3">Account</th>
                 <th scope="col" class="px-6 py-3">Contact</th>
                 <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($accounts as $account)
+            {{-- @foreach($accounts as $account)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="w-4 p-4">
                     <div class="flex items-center">
@@ -76,7 +76,7 @@
                     <a href="{{ route('account.destroy', ['aid' => $account->acc_id]) }}" class="font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Delete</a>
                 </td>
             </tr>
-            @endforeach
+            @endforeach --}}
         </tbody>
     </table>
 </div>

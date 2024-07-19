@@ -41,7 +41,7 @@ Route::resource('user', 'App\Http\Controllers\UserController')->parameters(['use
 Route::delete('user/clear-log/{uid}', 'App\Http\Controllers\UserActionController@clearLog')->name('user.clear-log');
 Route::put('user/create-log/{uid}', 'App\Http\Controllers\UserActionController@createLog')->name('user.create-log');
 
-Route::resource('account', 'App\Http\Controllers\AccountController')->parameters(['account' => 'aid']);
+Route::resource('account', 'App\Http\Controllers\AccountController');
 
 Route::resource('contact', 'App\Http\Controllers\ContactController');
 
