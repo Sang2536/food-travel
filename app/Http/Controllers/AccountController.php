@@ -24,7 +24,9 @@ class AccountController extends Controller
             return $this->accountService->getDatatables($accounts);
         }
 
-        return view('accounts/index', ['accounts' => $accounts]);
+        $accountStatistical = $this->accountService->statistical();
+
+        return view('accounts/index', ['accountStatistical' => $accountStatistical]);
     }
 
     /**
@@ -50,9 +52,14 @@ class AccountController extends Controller
     {
         $account = Account::where('acc_id', $id)->first();
 
+        $userLogin = $this->accountService->fakeUserLogin();
+
         return view(
             'accounts/show',
-            ['account' => $account]
+            [
+                'account' => $account,
+                'userLogin' => $userLogin,
+            ]
         );
     }
 

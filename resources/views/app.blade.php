@@ -18,8 +18,10 @@
                 @include('layouts.sidebar')
             </div>
 
-            <div class="flex-initial w-10/12 pl-12 sm:ml-12 h-screen">
+            <div class="w-10/12 h-auto bg-gray-50">
                 @yield('content')
+
+                @include('layouts.footer')
             </div>
         </div>
 

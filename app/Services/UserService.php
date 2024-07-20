@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserService {
+    public function fakeUserLogin()
+    {
+        return (object) [
+            'uid' => 'UID11111111',
+            'roles' => [
+                'name' => 'admin',
+                'permission' => [],
+            ]
+        ];
+    }
+    
     public static function get(string $id): Collection|User
     {
         $user = User::where('uid', $id)->first();

@@ -21,5 +21,4 @@ class StorageService {
         else
             return 0;
     }
-
 }

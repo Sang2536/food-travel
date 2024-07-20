@@ -40,15 +40,9 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $userLogin = (object) [
-            'uid' => 'UID11111111',
-            'roles' => [
-                'name' => 'admin',
-                'permission' => [],
-            ]
-        ];
-
         $user = $this->userService->get($id);
+
+        $userLogin = $this->userService->fakeUserLogin();
 
         return view(
             'users/show',
