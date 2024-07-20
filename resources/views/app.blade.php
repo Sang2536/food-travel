@@ -14,11 +14,11 @@
         @include('layouts.navbar')
 
         <div class="flex w-full mt-20">
-            <div class="w-2/12">
+            <div class="float-left w-2/12">
                 @include('layouts.sidebar')
             </div>
 
-            <div class="w-10/12 h-auto bg-gray-50">
+            <div class="float-left w-10/12 h-auto h-min-screen bg-gray-50">
                 @yield('content')
 
                 @include('layouts.footer')

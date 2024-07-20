@@ -34,6 +34,15 @@ class AccountService {
         return $account;
     }
 
+    public function destroy(string $id)
+    {
+        $user = $this->get($id);
+
+        //  remove user
+
+        return $user;
+    }
+
     public function getStatus(string $status = 'active', bool $isWhereNot = false): Collection
     {
         if ($isWhereNot)
@@ -91,6 +100,71 @@ class AccountService {
         return $dataRes;
     }
 
+    public function createLog($id): Array
+    {
+        $res = [
+            'success' => true,
+            'msg' => 'Create logs is success',
+        ];
+
+        try {
+            $account = Account::where('acc_id', $id);
+
+            $accountLogs = $account->first()->logs;
+
+            $logsAdd = [];
+            for ($i=0; $i < 10; $i++) {
+                $date = fake()->dateTime();
+                $item = (object) [
+                    'date' => $date->format('Y-m-d\TH:i:s.v\Z'),
+                    'action' => fake()->randomElement(['login','logout','change password','update profile','purchase','order','returns','pay']),
+                ];
+
+                array_push($logsAdd, $item);
+            }
+
+            empty(! $accountLogs) ? $logs = [...$accountLogs, ...$logsAdd] : $logs = $logsAdd;
+
+            $account->update([
+                'logs' => (object) $logs,
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            $res = [
+                'success' => false,
+                'msg' => 'Error: ' . $error,
+            ];
+        }
+
+        return $res;
+    }
+
+    public function clearLog($id): Array
+    {
+        $res = [
+            'success' => true,
+            'msg' => 'Clear logs is success',
+        ];
+
+        try {
+            $user = Account::where('acc_id', $id);
+
+            $user->update([
+                'logs' => null,
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            $res = [
+                'success' => false,
+                'msg' => 'Error: ' . $error,
+            ];
+        }
+
+        return $res;
+    }
+
     public function getDatatables(Collection|Account $accounts)
     {
         return Datatables::of($accounts)
@@ -111,7 +185,7 @@ class AccountService {
                     $html = '
                         <div class="items-center py-4">
                             <a href="' . route('account.show', ['account' => $row->acc_id]) . '" class="detail-user font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Detail</a>
-                            <a href="#" type="button" data-url="' . route('account.destroy', ['account' => $row->acc_id]) . '" data-modal-target="destroy-user-modal" data-modal-toggle="destroy-user-modal" class="destroy-user font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Destroy</a>
+                            <a href="#" type="button" data-url="' . route('account.destroy', ['account' => $row->acc_id]) . '" data-modal-target="destroy-account-modal" data-modal-toggle="destroy-account-modal" class="destroy-account font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Destroy</a>
                         </div>
                     ';
 

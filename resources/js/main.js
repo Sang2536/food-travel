@@ -35,35 +35,8 @@ $(document).ready(function () {
     });
 
     //  destroy user
-    $(document).on('click', 'a.destroy-user', function (e) {
-        e.stopPropagation();
+    destroy('a.destroy-user', 'div#destroy-user-modal', 'button#submit-destroy-user', 'button#hide-destroy-user');
 
-        $('div#destroy-user-modal').show();
-
-        let url = $(this).data('url');
-
-        $('button#submit-destroy-user').one('click', function (e) {
-            $.ajax({
-                method: "DELETE",
-                url: url,
-                dataType: "json",
-                success: function(result) {
-                    if (result.success == true) {
-                        alert(result.data['uid'] + ' - ' + result.data['time']);
-                        userTable.ajax.reload();
-                    } else {
-                        alert('error');
-                    }
-                }
-            });
-        });
-
-        //  hide modal
-        $('button#hide-destroy-user').one('click', function (e) {
-            $('div#destroy-user-modal').hide();
-        });
-    });
-    
     //  create log
     $(document).on('click', 'button#create-log-user', function (e) {
         const url = $(this).data('url');
@@ -87,8 +60,6 @@ $(document).ready(function () {
     //  clear log
     $(document).on('click', 'button#clear-log-user', function (e) {
         const url = $(this).data('url');
-
-        console.log(url);
 
         $.ajax({
             method: "DELETE",
@@ -131,4 +102,85 @@ $(document).ready(function () {
             {data: 'action', name: 'action'},
         ],
     });
+
+    //  destroy account
+    destroy('a.destroy-account', 'div#destroy-account-modal', 'button#submit-destroy-account', 'button#hide-destroy-account');
+
+    // create logs
+    createLogs('button#create-log-account')
+
+    //  clear logs
+    clearLogs('button#clear-log-account');
 });
+
+
+function destroy (selectorButton, selectorModal, selectorModalBtnSubmit, selectorModalBtnHide) {
+    $(document).on('click', selectorButton, function (e) {
+        e.stopPropagation();
+
+        $(selectorModal).show();
+
+        let url = $(this).data('url');
+
+        $(selectorModalBtnSubmit).one('click', function (e) {
+            $.ajax({
+                method: "DELETE",
+                url: url,
+                dataType: "json",
+                success: function(result) {
+                    if (result.success == true) {
+                        alert(result.data['id'] + ' - ' + result.data['time']);
+                        userTable.ajax.reload();
+                    } else {
+                        alert('error');
+                    }
+                }
+            });
+        });
+
+        //  hide modal
+        $(selectorModalBtnHide).one('click', function (e) {
+            $(selectorModal).hide();
+        });
+    });
+}
+
+function createLogs (selectorBtnCreate) {
+    $(document).on('click', selectorBtnCreate, function (e) {
+        const url = $(this).data('url');
+
+        console.log(url);
+
+        $.ajax({
+            method: "PUT",
+            url: url,
+            dataType: "json",
+            success: function(result) {
+                if (result.success == true) {
+                    alert(result.msg);
+                } else {
+                    alert(result.msg);
+                }
+            }
+        });
+    });
+}
+
+function clearLogs (selectorBtnClear) {
+    $(document).on('click', selectorBtnClear, function (e) {
+        const url = $(this).data('url');
+
+        $.ajax({
+            method: "DELETE",
+            url: url,
+            dataType: "json",
+            success: function(result) {
+                if (result.success == true) {
+                    alert(result.msg);
+                } else {
+                    alert(result.msg);
+                }
+            }
+        });
+    });
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AccountController extends Controller
 {
@@ -84,6 +85,22 @@ class AccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $account = $this->accountService->destroy($id);
+
+        $response = [
+            'success' => false
+        ];
+
+        if($account) {
+            $response = [
+                'success' => true,
+                'data' => [
+                    'id' => $id,
+                    'time' => Carbon::now()
+                ],
+            ];
+        }
+
+        return $response;
     }
 }

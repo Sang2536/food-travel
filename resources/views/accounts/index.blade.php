@@ -9,7 +9,7 @@
 </div>
 
 <div>
-    {{-- @include('accounts.partials.modal_destroy') --}}
+    @include('accounts.partials.modal_destroy')
 </div>
 @endsection
 

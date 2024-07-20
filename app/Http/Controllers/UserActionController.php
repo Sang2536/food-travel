@@ -6,11 +6,9 @@ use App\Services\UserService;
 
 class UserActionController extends Controller
 {
-    protected $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(protected UserService $userService)
     {
-        $this->userService = $userService;
+        //
     }
 
     public function statistical()

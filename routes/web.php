@@ -42,6 +42,8 @@ Route::delete('user/clear-log/{uid}', 'App\Http\Controllers\UserActionController
 Route::put('user/create-log/{uid}', 'App\Http\Controllers\UserActionController@createLog')->name('user.create-log');
 
 Route::resource('account', 'App\Http\Controllers\AccountController');
+Route::delete('account/clear-log/{account}', 'App\Http\Controllers\AccountActionController@clearLog')->name('account.clear-log');
+Route::put('account/create-log/{account}', 'App\Http\Controllers\AccountActionController@createLog')->name('account.create-log');
 
 Route::resource('contact', 'App\Http\Controllers\ContactController');
 
