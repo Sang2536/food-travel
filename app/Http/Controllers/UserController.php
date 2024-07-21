@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        return view('users/edit');
+        //
     }
 
     /**
@@ -65,11 +65,18 @@ class UserController extends Controller
     {
         $pathPhoto = null;
         if (! empty($request->hasFile('avatar'))) {
-            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'));
+            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'users');
         }
 
         try {
             $user = $this->userService->get($id);
+
+            if ($pathPhoto) {
+                $pathPhoto = $pathPhoto;
+                $this->fileHelper->deleteFileFromStorage($user->avatar);
+            } else {
+                $pathPhoto = $user->avatar;
+            }
 
             $user->update([
                 'name' => $request->name,

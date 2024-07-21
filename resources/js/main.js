@@ -1,3 +1,4 @@
+/*  Ajax Setup  */
 $(document).ready(function () {
     $.ajaxSetup({
         headers: {
@@ -6,10 +7,9 @@ $(document).ready(function () {
     });
 });
 
-
-//  User
+/*  User  */
 $(document).ready(function () {
-    //  User table
+    //  table
     var userTable = $('table#users-table').DataTable({
         processing: true,
         serverSide: true,
@@ -34,51 +34,19 @@ $(document).ready(function () {
         ],
     });
 
-    //  destroy user
+    //  destroy
     destroy('a.destroy-user', 'div#destroy-user-modal', 'button#submit-destroy-user', 'button#hide-destroy-user');
 
     //  create log
-    $(document).on('click', 'button#create-log-user', function (e) {
-        const url = $(this).data('url');
-
-        console.log(url);
-
-        $.ajax({
-            method: "PUT",
-            url: url,
-            dataType: "json",
-            success: function(result) {
-                if (result.success == true) {
-                    alert(result.msg);
-                } else {
-                    alert(result.msg);
-                }
-            }
-        });
-    });
+    createLogs('button#create-log-user')
 
     //  clear log
-    $(document).on('click', 'button#clear-log-user', function (e) {
-        const url = $(this).data('url');
-
-        $.ajax({
-            method: "DELETE",
-            url: url,
-            dataType: "json",
-            success: function(result) {
-                if (result.success == true) {
-                    alert(result.msg);
-                } else {
-                    alert(result.msg);
-                }
-            }
-        });
-    });
+    clearLogs('button#clear-log-user');
 });
 
-//  User
+/*  Account  */
 $(document).ready(function () {
-    //  User table
+    //  table
     var accountTable = $('table#accounts-table').DataTable({
         processing: true,
         serverSide: true,
@@ -103,17 +71,17 @@ $(document).ready(function () {
         ],
     });
 
-    //  destroy account
+    //  destroy
     destroy('a.destroy-account', 'div#destroy-account-modal', 'button#submit-destroy-account', 'button#hide-destroy-account');
 
     // create logs
-    createLogs('button#create-log-account')
+    createLogs('button#create-log-account');
 
     //  clear logs
     clearLogs('button#clear-log-account');
 });
 
-
+/*  Function  */
 function destroy (selectorButton, selectorModal, selectorModalBtnSubmit, selectorModalBtnHide) {
     $(document).on('click', selectorButton, function (e) {
         e.stopPropagation();

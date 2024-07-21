@@ -6,7 +6,7 @@ use Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class FileHelper {
-    public static function setImgStorage(Object $photo): string
+    public static function setImgStorage(Object $photo, string $nameFolder = 'general'): string
     {
         $pathPhoto = null;
         $originalName = $photo->getClientOriginalName();
@@ -15,14 +15,19 @@ class FileHelper {
         if ($originalName) {
             $customName = $currentTime->format('Ymd_His') . '_' . $originalName;
 
-            $pathPhoto = Storage::disk('public')->putFileAs('photos/users', $photo, $customName);
+            $pathPhoto = Storage::disk('public')->putFileAs('photos/' . $nameFolder, $photo, $customName);
         }
 
         return $pathPhoto;
     }
 
-    public static function getImgStorage(Object $photo): string
+    public static function getImgStorage(Object $photo): void
     {
-        return '123';
+        //
+    }
+
+    public function deleteFileFromStorage(string $dirFilename): void
+    {
+        Storage::disk('public')->delete($dirFilename);
     }
 }

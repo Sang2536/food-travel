@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use App\Services\AccountService;
+use App\Helpers\FileHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class AccountController extends Controller
 {
-    public function __construct(protected AccountService $accountService)
+    public function __construct(protected AccountService $accountService, protected FileHelper $fileHelper)
     {
         //  code
     }
@@ -51,8 +51,7 @@ class AccountController extends Controller
      */
     public function show(string $id)
     {
-        $account = Account::where('acc_id', $id)->first();
-
+        $account = $this->accountService->get($id);
         $userLogin = $this->accountService->fakeUserLogin();
 
         return view(
@@ -69,7 +68,7 @@ class AccountController extends Controller
      */
     public function edit(string $id)
     {
-        return view('accounts/edit');
+        //
     }
 
     /**
@@ -77,7 +76,35 @@ class AccountController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pathPhoto = null;
+        if (! empty($request->hasFile('avatar'))) {
+            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'accounts');
+        }
+
+        try {
+            $account = $this->accountService->get($id);
+
+            if ($pathPhoto) {
+                $pathPhoto = $pathPhoto;
+                $this->fileHelper->deleteFileFromStorage($account->avatar);
+            } else {
+                $pathPhoto = $account->avatar_url;
+            }
+
+            $account->update([
+                'display_name' => $request->display_name,
+                'avatar' => $pathPhoto,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'descr' => $request->short_descr,
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            return redirect('error')->with(compact('error'));
+        }
+
+        return redirect()->back();
     }
 
     /**

@@ -11,7 +11,7 @@
         </div>
         <div class="my-2">
             <label for="avatar" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Avatar</label>
-            <input type="file" name="avatar" id="avatar" accept="image/*" onchange="uploadImg(event)" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <input type="file" name="avatar" id="avatar" accept="image/*" onchange="uploadImg(event)" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <div class="mt-2 max-w-48">
                 <img id="prview_img" src="#" alt="error" title="" class="mb-2 w-48 h-48 object-fill rounded-full hidden" />
             </div>

@@ -50,7 +50,7 @@
                 @include('accounts.partials.show_logs_tab', ['account' => $account])
             </div>
             <div class="hidden p-4 rounded-lg bg-gray-100 dark:bg-gray-800" id="account-update" role="tabpanel" aria-labelledby="update-tab">
-                @include('accounts.edit')
+                @include('accounts.edit', ['account' => $account])
             </div>
             <div class="hidden p-4 rounded-lg bg-gray-100 dark:bg-gray-800" id="account-settings" role="tabpanel" aria-labelledby="settings-tab">
                 @include('accounts.setting')

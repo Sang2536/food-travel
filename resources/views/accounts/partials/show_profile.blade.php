@@ -1,6 +1,6 @@
 <div class="flex relative items-center rounded py-4 text-gray-900 whitespace-nowrap dark:text-white">
     <div class="absolute">
-        <img class="w-64 h-64 object-fill rounded-full z-20" src="https://i.pinimg.com/564x/f9/8d/80/f98d8070d4214bad1d13ede632b82563.jpg" alt="Jese image">
+        <img class="w-64 h-64 z-20 object-fill rounded-full bg-gradient-to-r from-gray-200 to-gray-300" src="{{ url($account->avatar_url) }}" alt="{{ $account->display_name }}">
     </div>
     <div class="w-full ml-32 pl-40 py-2 h-64 bg-gray-100 rounded-r-full border border-gray-300 float-right">
         <div class="flex">

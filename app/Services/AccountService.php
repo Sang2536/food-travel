@@ -26,7 +26,7 @@ class AccountService {
 
     public function get(string $id): Collection|Account
     {
-        $account = Account::where('aid', $id)->first();
+        $account = Account::where('acc_id', $id)->first();
         $key = 'account' . $account->uid;
 
         Cache::put($key, $account, 120);
