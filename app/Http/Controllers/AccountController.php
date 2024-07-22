@@ -91,17 +91,19 @@ class AccountController extends Controller
                 $pathPhoto = $account->avatar_url;
             }
 
-            $account->update([
+            $data = [
                 'display_name' => $request->display_name,
                 'avatar' => $pathPhoto,
                 'address' => $request->address,
                 'phone' => $request->phone,
                 'descr' => $request->short_descr,
-            ]);
+            ];
+
+            $resUpdate = $this->accountService->update($account, $data);
         } catch (\Throwable $th) {
             $error = throw $th;
 
-            return redirect('error')->with(compact('error'));
+            return redirect('templates/error', ['error' => $error]);
         }
 
         return redirect()->back();
@@ -115,12 +117,14 @@ class AccountController extends Controller
         $account = $this->accountService->destroy($id);
 
         $response = [
-            'success' => false
+            'success' => false,
+            'msg' => 'Destroy failed. Please try again.',
         ];
 
         if($account) {
             $response = [
                 'success' => true,
+                'msg' => 'Destroy success.',
                 'data' => [
                     'id' => $id,
                     'time' => Carbon::now()

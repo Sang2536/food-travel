@@ -43,14 +43,24 @@ class AccountService {
         return $user;
     }
 
+    public function update(Collection|Account $account, array $data): bool
+    {
+        $success = false;
+        if ($account && $data) {
+            $success = $account->update($data);
+        }
+
+        return $success;
+    }
+
     public function getStatus(string $status = 'active', bool $isWhereNot = false): Collection
     {
         if ($isWhereNot)
-            $users = Account::whereNot('status', $status)->get();
+            $accounts = Account::whereNot('status', $status)->get();
         else
-            $users = Account::where('status', $status)->get();
+            $accounts = Account::where('status', $status)->get();
 
-        return $users;
+        return $accounts;
     }
 
     public function statistical()

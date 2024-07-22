@@ -123,14 +123,30 @@ function createLogs (selectorBtnCreate) {
             method: "PUT",
             url: url,
             dataType: "json",
-            success: function(result) {
-                if (result.success == true) {
-                    alert(result.msg);
-                } else {
-                    alert(result.msg);
-                }
+            // success: function(result) {
+            //     if (result.success == true) {
+            //         alert(result.msg);
+            //     } else {
+            //         alert(result.msg);
+            //     }
+            // },
+            beforeSend: function () {
+                // $(".modal").show();
+                alert('before send ajax');
+            },
+            complete: function () {
+                //  $(".modal").hide();
+                alert('send ajax is complete');
+            },
+        })
+        .done(function (result) {
+            if (result.success == true) {
+                alert(result.msg);
+            } else {
+                alert(result.msg);
             }
-        });
+        })
+        .fail(function () {});
     });
 }
 
@@ -151,4 +167,8 @@ function clearLogs (selectorBtnClear) {
             }
         });
     });
+}
+
+function spinner (selector) {
+
 }
