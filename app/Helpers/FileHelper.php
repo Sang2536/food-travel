@@ -6,14 +6,14 @@ use Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class FileHelper {
-    public static function setImgStorage(Object $photo, string $nameFolder = 'general'): string
+    public static function setImgStorage(Object $photo, string $nameFolder = 'general', string $key = 'image'): string
     {
         $pathPhoto = null;
         $originalName = $photo->getClientOriginalName();
         $currentTime = Carbon\Carbon::now();
 
         if ($originalName) {
-            $customName = $currentTime->format('Ymd_His') . '_' . $originalName;
+            $customName = $currentTime->format('Ymd_His') . '_' . $key . '_' . $originalName;
 
             $pathPhoto = Storage::disk('public')->putFileAs('photos/' . $nameFolder, $photo, $customName);
         }

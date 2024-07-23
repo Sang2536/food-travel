@@ -24,4 +24,11 @@ class AccountActionController extends Controller
 
         return $res;
     }
+
+    public function settings($id)
+    {
+        $res = $this->accountService->settings($id);
+
+        return $res;
+    }
 }

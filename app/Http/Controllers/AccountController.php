@@ -52,12 +52,14 @@ class AccountController extends Controller
     public function show(string $id)
     {
         $account = $this->accountService->get($id);
+        $accountStatus = $this->accountService->getStatus($id);
         $userLogin = $this->accountService->fakeUserLogin();
 
         return view(
             'accounts/show',
             [
                 'account' => $account,
+                'accountStatus' => $accountStatus,
                 'userLogin' => $userLogin,
             ]
         );
@@ -78,7 +80,7 @@ class AccountController extends Controller
     {
         $pathPhoto = null;
         if (! empty($request->hasFile('avatar'))) {
-            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'accounts');
+            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'accounts', $id);
         }
 
         try {

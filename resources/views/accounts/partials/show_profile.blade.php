@@ -6,13 +6,12 @@
         <div class="flex">
             <div class="text-2xl font-semibold">{{ $account->display_name }}</div>
             <div class="flex items-center ml-2 h-1/2 px-2 border rounded-full bg-white">
-                @if ($account->status == 'active')
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{ $account->status }}
-                @elseif ($account->status == 'inactive')
-                    <div class="h-2.5 w-2.5 rounded-full bg-gray-500 me-2"></div> {{ $account->status }}
-                @elseif ($account->status == 'locked')
-                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> {{ $account->status }}
-                @endif
+                {!! $accountStatus['html'] !!}
+            </div>
+            <div class="items-center ml-2 h-1/2 px-1 border rounded-full bg-cyan-200">
+                <button class="text-center">
+                    {!! $accountStatus['htmlIcon'] !!}
+                </button>
             </div>
         </div>
         <div class="text-xl text-gray-500">{{ $account->email }}</div>

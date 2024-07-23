@@ -36,11 +36,11 @@ class AccountService {
 
     public function destroy(string $id)
     {
-        $user = $this->get($id);
+        $account = $this->get($id);
 
-        //  remove user
+        //  remove account
 
-        return $user;
+        return $account;
     }
 
     public function update(Collection|Account $account, array $data): bool
@@ -53,14 +53,39 @@ class AccountService {
         return $success;
     }
 
-    public function getStatus(string $status = 'active', bool $isWhereNot = false): Collection
+    public function getStatus($id): Array
     {
-        if ($isWhereNot)
-            $accounts = Account::whereNot('status', $status)->get();
-        else
-            $accounts = Account::where('status', $status)->get();
+        $account = $this->get($id);
+        $status = $account->status;
 
-        return $accounts;
+        $bgColor = '';
+        $classSvgIcon = '';
+        if ($status == 'active') {
+            $bgColor = 'bg-green-500';
+            $classSvgIcon = 'icon icon-tabler icons-tabler-outline icon-tabler-lock';
+        }
+        elseif ($status == 'inactive') {
+            $bgColor = 'bg-gray-500';
+            $classSvgIcon = 'icon icon-tabler icons-tabler-outline icon-tabler-lock';
+        }
+        elseif ($status == 'locked') {
+            $bgColor = 'bg-red-500';
+            $classSvgIcon = 'icon icon-tabler icons-tabler-outline icon-tabler-lock-open-2';
+        }
+
+        $resData = [
+            'html' => '<div class="h-2.5 w-2.5 rounded-full '. $bgColor .' me-2"></div>' . $status,
+            'htmlIcon' => '
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="'. $classSvgIcon .' text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                    <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                </svg>
+            ',
+        ];
+
+        return $resData;
     }
 
     public function statistical()
@@ -84,7 +109,7 @@ class AccountService {
             [
                 'title' => 'Active or Inactive',
                 'short_description' => '',
-                'quantity' => $this->getStatus('locked', true)->count(),
+                'quantity' => Account::whereNot('status', 'locked')->count(),
                 'style' => 'bg-green-200',
                 'icon' => '
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="70%"  height="70%"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-shield-check text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
@@ -96,7 +121,7 @@ class AccountService {
             [
                 'title' => 'Locked',
                 'short_description' => '',
-                'quantity' => $this->getStatus('locked')->count(),
+                'quantity' => Account::where('status', 'locked')->count(),
                 'style' => 'bg-red-200',
                 'icon' => '
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="70%"  height="70%"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-lock text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
@@ -114,7 +139,7 @@ class AccountService {
     {
         $res = [
             'success' => true,
-            'msg' => 'Create logs is success',
+            'msg' => 'Create successful',
         ];
 
         try {
@@ -143,7 +168,7 @@ class AccountService {
 
             $res = [
                 'success' => false,
-                'msg' => 'Error: ' . $error,
+                'msg' => 'Update failed. Error: ' . $error,
             ];
         }
 
@@ -154,7 +179,7 @@ class AccountService {
     {
         $res = [
             'success' => true,
-            'msg' => 'Clear logs is success',
+            'msg' => 'Update successful',
         ];
 
         try {
@@ -168,7 +193,39 @@ class AccountService {
 
             $res = [
                 'success' => false,
-                'msg' => 'Error: ' . $error,
+                'msg' => 'Update failed. Error: ' . $error,
+            ];
+        }
+
+        return $res;
+    }
+
+    public function updateSettings($id) : Array
+    {
+        $res = [
+            'success' => true,
+            'msg' => 'Update successful.',
+        ];
+
+        try {
+            $user = Account::where('acc_id', $id);
+
+            $user->update([
+                'settings' => (object) [
+                    'show_email' => true,
+                    'show_phone' => true,
+                    'allow_update' => true,
+                    'allow_destroy' => true,
+                    'allow_locked' => true,
+                    'allow_notifications' => true,
+                ],
+            ]);
+        } catch (\Throwable $th) {
+            $error = throw $th;
+
+            $res = [
+                'success' => false,
+                'msg' => 'Update failed. Error: ' . $error,
             ];
         }
 

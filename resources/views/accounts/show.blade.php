@@ -28,7 +28,7 @@
     </div>
 
     {{-- Profile Account --}}
-    @include('accounts.partials.show_profile', ['account' => $account])
+    @include('accounts.partials.show_profile', ['account' => $account, 'accountStatus' => $accountStatus])
 
     <div class="mt-8 rounded border border-gray-300 bg-gray-300 text-gray-900 whitespace-nowrap dark:text-white">
         <!-- info tab + logs tab + settings tab -->

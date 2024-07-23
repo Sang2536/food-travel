@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $pathPhoto = null;
         if (! empty($request->hasFile('avatar'))) {
-            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'users');
+            $pathPhoto = $this->fileHelper->setImgStorage($request->file('avatar'), 'users', $id);
         }
 
         try {
