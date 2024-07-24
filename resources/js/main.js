@@ -42,6 +42,9 @@ $(document).ready(function () {
 
     //  clear log
     clearLogs('button#clear-log-user');
+
+    //  close modal
+    closeModal('div#table-modal', 'button#btn-close-modal');
 });
 
 /*  Account  */
@@ -79,6 +82,9 @@ $(document).ready(function () {
 
     //  clear logs
     clearLogs('button#clear-log-account');
+
+    //  close modal
+    closeModal('div#table-modal', 'button#btn-close-modal');
 });
 
 /*  Function  */
@@ -123,20 +129,15 @@ function createLogs (selectorBtnCreate) {
             method: "PUT",
             url: url,
             dataType: "json",
-            // success: function(result) {
-            //     if (result.success == true) {
-            //         alert(result.msg);
-            //     } else {
-            //         alert(result.msg);
-            //     }
-            // },
             beforeSend: function () {
                 // $(".modal").show();
-                alert('before send ajax');
+                $('svg.icon-tabler-clear-all').addClass('hidden');
+                $('div[role="status"]').removeClass('hidden');
             },
             complete: function () {
                 //  $(".modal").hide();
-                alert('send ajax is complete');
+                $('svg.icon-tabler-clear-all').removeClass('hidden');
+                $('div[role="status"]').addClass('hidden');
             },
         })
         .done(function (result) {
@@ -169,6 +170,8 @@ function clearLogs (selectorBtnClear) {
     });
 }
 
-function spinner (selector) {
-
+function closeModal (selectorModal, selectorModalBtnHide) {
+    $(selectorModalBtnHide).on('click', function (e) {
+        $(selectorModal).hide();
+    });
 }
