@@ -139,7 +139,7 @@ class AccountService {
     {
         $res = [
             'success' => true,
-            'msg' => 'Create successful',
+            'msg' => 'Create logs successful',
         ];
 
         try {
@@ -168,7 +168,7 @@ class AccountService {
 
             $res = [
                 'success' => false,
-                'msg' => 'Update failed. Error: ' . $error,
+                'msg' => 'Create logs failed. Error: ' . $error,
             ];
         }
 
@@ -179,7 +179,7 @@ class AccountService {
     {
         $res = [
             'success' => true,
-            'msg' => 'Update successful',
+            'msg' => 'Clear logs successful.',
         ];
 
         try {
@@ -193,7 +193,7 @@ class AccountService {
 
             $res = [
                 'success' => false,
-                'msg' => 'Update failed. Error: ' . $error,
+                'msg' => 'Clear logs failed. Error: ' . $error,
             ];
         }
 

@@ -3,7 +3,15 @@ $(document).ready(function () {
     $.ajaxSetup({
         headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+        },
+        beforeSend: function () {
+            $('div[role="status-start"]').addClass('hidden');
+            $('div[role="status-load"]').removeClass('hidden');
+        },
+        complete: function () {
+            $('div[role="status-start"]').removeClass('hidden');
+            $('div[role="status-load"]').addClass('hidden');
+        },
     });
 });
 
@@ -113,28 +121,19 @@ function destroy (selectorButton, selectorModal, selectorModalBtnSubmit, selecto
     });
 }
 
-function createLogs (selectorBtnCreate) {
-    $(document).on('click', selectorBtnCreate, function (e) {
+function createLogs (selectorBtnCreateLogs) {
+    $(document).on('click', selectorBtnCreateLogs, function (e) {
         const url = $(this).data('url');
-
-        console.log(url);
 
         $.ajax({
             method: "PUT",
             url: url,
             dataType: "json",
-            beforeSend: function () {
-                $('div[role="status-start"]').addClass('hidden');
-                $('div[role="status-load"]').removeClass('hidden');
-            },
-            complete: function () {
-                $('div[role="status-start"]').removeClass('hidden');
-                $('div[role="status-load"]').addClass('hidden');
-            },
         })
         .done(function (result) {
             if (result.success == true) {
                 alert(result.msg);
+                $("#table-logs").load(location.href + " #table-logs");
             } else {
                 alert(result.msg);
             }
@@ -143,21 +142,23 @@ function createLogs (selectorBtnCreate) {
     });
 }
 
-function clearLogs (selectorBtnClear) {
-    $(document).on('click', selectorBtnClear, function (e) {
+function clearLogs (selectorBtnClearLogs) {
+    $(document).on('click', selectorBtnClearLogs, function (e) {
         const url = $(this).data('url');
 
         $.ajax({
             method: "DELETE",
             url: url,
             dataType: "json",
-            success: function(result) {
-                if (result.success == true) {
-                    alert(result.msg);
-                } else {
-                    alert(result.msg);
-                }
+        })
+        .done(function (result) {
+            if (result.success == true) {
+                alert(result.msg);
+                $("#table-logs").load(location.href + " #table-logs");
+            } else {
+                alert(result.msg);
             }
-        });
+        })
+        .fail(function () {});;
     });
 }
