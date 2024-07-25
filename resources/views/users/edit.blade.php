@@ -1,5 +1,5 @@
 <div class="px-4">
-    <p class="my-4 text-2xl font-semibold">SETTINGS</p>
+    <p class="my-4 text-2xl font-semibold">UPDATE</p>
     {!! Form::open(['url' => route('user.update', ['uid' => $user->uid]), 'method' => 'PUT', 'files' => true, 'id' => 'user-update-form' ]) !!}
         @csrf
         <div class="my-2">

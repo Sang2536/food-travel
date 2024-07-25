@@ -42,9 +42,6 @@ $(document).ready(function () {
 
     //  clear log
     clearLogs('button#clear-log-user');
-
-    //  close modal
-    closeModal('div#table-modal', 'button#btn-close-modal');
 });
 
 /*  Account  */
@@ -82,9 +79,6 @@ $(document).ready(function () {
 
     //  clear logs
     clearLogs('button#clear-log-account');
-
-    //  close modal
-    closeModal('div#table-modal', 'button#btn-close-modal');
 });
 
 /*  Function  */
@@ -130,14 +124,12 @@ function createLogs (selectorBtnCreate) {
             url: url,
             dataType: "json",
             beforeSend: function () {
-                // $(".modal").show();
-                $('svg.icon-tabler-clear-all').addClass('hidden');
-                $('div[role="status"]').removeClass('hidden');
+                $('div[role="status-start"]').addClass('hidden');
+                $('div[role="status-load"]').removeClass('hidden');
             },
             complete: function () {
-                //  $(".modal").hide();
-                $('svg.icon-tabler-clear-all').removeClass('hidden');
-                $('div[role="status"]').addClass('hidden');
+                $('div[role="status-start"]').removeClass('hidden');
+                $('div[role="status-load"]').addClass('hidden');
             },
         })
         .done(function (result) {
@@ -167,11 +159,5 @@ function clearLogs (selectorBtnClear) {
                 }
             }
         });
-    });
-}
-
-function closeModal (selectorModal, selectorModalBtnHide) {
-    $(selectorModalBtnHide).on('click', function (e) {
-        $(selectorModal).hide();
     });
 }
