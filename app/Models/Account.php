@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
-// use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Relations\HasMany;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Account extends Model
@@ -16,7 +16,7 @@ class Account extends Model
 
     protected $fillable = [
         'acc_id',
-        'qr_code',
+        'slug',
         'display_name',
         'login_name',
         'email',
@@ -44,5 +44,9 @@ class Account extends Model
 
     public function avatarUrl() : CastsAttribute {
         return CastsAttribute::get(fn() => Storage::disk('public')->url($this->avatar));
+    }
+
+    public function transactions() : HasMany {
+        return $this->hasMany(Transaction::class, 'customer_id', 'acc_id');
     }
 }
