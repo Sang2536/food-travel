@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Casts\DateCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Transaction extends Model

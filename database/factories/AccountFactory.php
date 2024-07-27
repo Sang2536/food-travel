@@ -38,7 +38,7 @@ class AccountFactory extends Factory
 
         return [
             'acc_id'  =>  fake()->unique()->regexify('AID[0-9]{8}'),
-            'qr_code' =>    '',
+            'slug' =>    '',
             'display_name' =>   $name,
             'login_name'  =>  preg_replace('/\s+/', '', strtolower($name)),
             'email' =>  fake()->unique()->email(),

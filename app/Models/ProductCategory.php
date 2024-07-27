@@ -20,7 +20,7 @@ class ProductCategory extends Model
         'parent_id',
         'level',
         'slug',
-        'keyword',
+        'keywords',
         'short_descr',
         'note',
         'created_by',
@@ -31,7 +31,7 @@ class ProductCategory extends Model
     protected $casts = [];
 
     protected $type = [
-        'keyword' => 'array',
+        'keywords' => 'array',
     ];
 
     public function products() : HasMany {

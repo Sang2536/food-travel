@@ -28,7 +28,7 @@ class ContactFactory extends Factory
             'source'    =>  fake()->randomElement(['facebook', 'youtube', 'tiktok', 'website', 'instagram', 'marketing', '']),
             'descr' =>  fake()->text(),
             'settings'  =>  (object) [],
-            'created_by'    =>  '',
+            'created_by'    =>  1,
         ];
     }
 }

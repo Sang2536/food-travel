@@ -20,11 +20,12 @@ class TransactionFactory extends Factory
 
         return [
             'trans_id'  =>  fake()->unique()->regexify('TRS[0-9]{8}'),
+            'customer_id'  =>  '',
             'name'  =>  fake()->word(),
             'type'  =>  fake()->randomElement(['sell','purchase','return_sell','return_purchase']),
             'status'    =>  fake()->randomElement(['done','order','return','delivering']),
             'total_amount'  =>  rand(10, 100) * 10000,
-            'currency_unit' =>  "VND",
+            'currency_unit' =>  'VND',
             'tran_date' =>  $date,
             'products'  =>  (object) [
                 fake()->unique()->regexify('PID[0-9]{8}')   =>  [
@@ -44,7 +45,14 @@ class TransactionFactory extends Factory
                     'quantity'  =>  random_int(1, 3),
                 ],
             ],
+            'payment_log' => (object) [
+                'date' => '',
+                'amount' => '',
+                'notes' => '',
+            ],
             'setting'   =>  (object) [],
+            'notes' => '',
+            'created_by' => 1,
         ];
     }
 }

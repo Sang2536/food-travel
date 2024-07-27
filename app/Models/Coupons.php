@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Casts\DateCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Relations\BelongsTo;
-use MongoDB\Laravel\Relations\HasMany;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Coupons extends Model
@@ -22,6 +22,7 @@ class Coupons extends Model
         'value',
         'start_day',
         'last_day',
+        'apply_for',
         'customer_use',
         'note',
         'created_by',
@@ -29,7 +30,10 @@ class Coupons extends Model
 
     protected $hidden = [];
 
-    protected $casts = [];
+    protected $casts = [
+        'start_day' => DateCustomCast::class,
+        'last_day' => DateCustomCast::class,
+    ];
 
     protected $type = [
         'customer_use' => 'array',

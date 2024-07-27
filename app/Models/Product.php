@@ -14,7 +14,7 @@ class Product extends Model
     protected  $collection = 'products';
 
     protected $fillable = [
-        'product_code',
+        'pid',
         'name',
         'status',
         'type',

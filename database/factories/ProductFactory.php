@@ -18,14 +18,14 @@ class ProductFactory extends Factory
     {
         return [
             'pid'   =>  fake()->unique()->regexify('PID[0-9]{8}'),
-            'qr_code'   =>  '',
+            'slug'   =>  '',
             'name'  =>  fake()->word(),
             'avatar'    =>  '',
-            'type'  =>  fake()->randomElement(['single','combo','variable']),
-            'status'    =>  fake()->randomElement(['active', 'inactive', 'pause','out_of_stock']),
-            'category'  =>  fake()->randomElement(['dry_food', 'canned_food', 'drink', 'cold_type', 'houseware', 'disposable_items']),
-            'brand' =>  fake()->randomElement(['kibon', 'klik', 'cocacola', 'pepsi','uniben','boost','magnum','conimex']),
-            'unit'  =>  fake()->randomElement(['pcs', 'pair', 'box', 'bottle', 'kg']),
+            'type'  =>  fake()->randomElement(['single', 'combo', 'variable']),
+            'status'    =>  fake()->randomElement(['active', 'inactive', 'pause', 'out_of_stock']),
+            'category_id'  =>  1,
+            'brand_id'  =>  1,
+            'unit_id'  =>  1,
             'point_trans'   =>  random_int(5, 22),
             'quantities'    =>  (object) [
                 'total' =>  random_int(30, 100),
@@ -44,7 +44,7 @@ class ProductFactory extends Factory
                 'point' =>  (float) rand(0, 10),
             ],
             'settings'  =>  (object) [],
-            'created_by'    =>  '',
+            'created_by'    =>  1,
         ];
     }
 }
