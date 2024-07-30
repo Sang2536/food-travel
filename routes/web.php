@@ -49,6 +49,14 @@ Route::resource('contact', 'App\Http\Controllers\ContactController');
 
 Route::resource('product', 'App\Http\Controllers\ProductController');
 
+Route::resource('product-category', 'App\Http\Controllers\ProductCategoryController');
+
+Route::resource('brand', 'App\Http\Controllers\BrandController');
+
+Route::resource('unit', 'App\Http\Controllers\UnitController');
+
+Route::resource('coupons', 'App\Http\Controllers\CouponsController');
+
 Route::resource('transaction', 'App\Http\Controllers\TransactionController');
 
 Route::get('system', 'App\Http\Controllers\SystemController@index')->name('system.index');
