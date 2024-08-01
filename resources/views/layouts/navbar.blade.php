@@ -7,12 +7,12 @@
             </div>
 
             <!-- Menu -->
-            <div class="w-5.5/12">
+            <div class="w-5.5/12 max-lg:collapse">
                 @include('layouts.navbar_partials.menu')
             </div>
 
             <!-- Language & Theme -->
-            <div class="flex w-3/12 justify-end items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+            <div class="flex w-3/12 justify-end items-center max-lg:collapse md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                 {{-- language --}}
                 @include('layouts.navbar_partials.language')
 

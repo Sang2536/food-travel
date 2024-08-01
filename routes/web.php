@@ -25,14 +25,19 @@ Route::get('/test', function () {
     return view('test');
 });
 
+//  docs/api
 Route::get('/docs/api', function () {
     return view('vendor/l5-swagger/index');
 });
 
-//  template
+//  template / page
 Route::get('error', 'App\Http\Controllers\ErrorController@error');
-
 Route::get('document', 'App\Http\Controllers\DocsController@index');
+
+//  Page
+Route::get('article', 'App\Http\Controllers\PageController@article');
+Route::get('service', 'App\Http\Controllers\PageController@service');
+Route::get('about-us', 'App\Http\Controllers\PageController@aboutUs');
 
 //  sidebar
 Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
