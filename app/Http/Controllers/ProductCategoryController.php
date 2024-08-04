@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProductCategoryService;
 use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
 {
+    public function __construct(protected ProductCategoryService $productCategoryService)
+    {
+        //  code
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $productCategories = $this->productCategoryService->get();
+
+        if ($request->ajax()) {
+            return $this->productCategoryService->getDatatables($productCategories);
+        }
+
         return view('product_categories/index');
     }
 

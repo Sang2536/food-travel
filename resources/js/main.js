@@ -89,6 +89,35 @@ $(document).ready(function () {
     clearLogs('button#clear-log-account');
 });
 
+/*  Product category  */
+$(document).ready(function () {
+    //  table
+    var productCategoryTable = $('table#product-category-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            method: "GET",
+            url: "/product-category",
+            data: function (d) {  }
+        },
+        columnDefs: [
+            {
+                "targets": [0, 4],
+                "orderable": false,
+                "searchable": false,
+            },
+        ],
+        columns: [
+            {data: 'checkbox', name: 'checkbox'},
+            {data: 'category', name: 'category'},
+            {data: 'level', name: 'level'},
+            {data: 'keywords', name: 'keywords'},
+            {data: 'created_by', name: 'created_by'},
+            {data: 'action', name: 'action'},
+        ],
+    });
+});
+
 /*  Function  */
 function destroy (selectorButton, selectorModal, selectorModalBtnSubmit, selectorModalBtnHide) {
     $(document).on('click', selectorButton, function (e) {

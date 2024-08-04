@@ -18,7 +18,7 @@ class ProductCategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $getCateId = ProductCategory::where('level', 0)->get('pc_id');
+        $getCateId = ProductCategory::where('level', 0)->select('pc_id')->get();
 
         $parentId = null;
         if (! empty($getCateId)) $parentId = fake()->randomElement([null, ...$getCateId]);
@@ -26,13 +26,16 @@ class ProductCategoryFactory extends Factory
         $level = 1;
         if (empty($parentId)) $level = 0;
 
+        $name = fake()->name();
+        $keywords = explode(' ', $name);
+
         return [
             'pc_id' =>  fake()->unique()->regexify('[A-Z0-9]{6}'),
-            'name'  =>  fake()->name(),
+            'name'  =>  $name,
             'parent_id' =>  $parentId,
             'level' => $level,
             'slug'  =>  '',
-            'keywords'   =>  [],
+            'keywords'   =>  $keywords,
             'short_descr'   =>  fake()->text(100),
             'note'  =>  fake()->text(20),
             'created_by'    =>  fake()->numberBetween(2, User::count()),
