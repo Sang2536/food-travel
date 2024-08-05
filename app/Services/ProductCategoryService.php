@@ -3,10 +3,16 @@
 namespace App\Services;
 
 use App\Models\ProductCategory;
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Collection;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductCategoryService {
+    public function __construct(protected UserService $userService)
+    {
+        //  code
+    }
+
     public function fakeUserLogin()
     {
         return (object) [
@@ -20,10 +26,11 @@ class ProductCategoryService {
 
     public function get(string $id = null): Collection|ProductCategory
     {
-        if ($id == null)
-            return ProductCategory::all();
-        else
-            return ProductCategory::where('pc_id', $id)->first();
+        $productCategory = null;
+        if ($id) $productCategory = ProductCategory::where('pc_id', $id)->first();
+        else $productCategory = ProductCategory::all();
+
+        return $productCategory;
     }
 
     public function destroy(string $id): bool
@@ -60,8 +67,8 @@ class ProductCategoryService {
                 function ($row) {
                     $html = '
                         <div class="items-center py-4">
-                            <a href="#" type="button" data-url="' . route('product-category.show', $row->pc_id) . '" data-modal-target="detail-product-category-modal" data-modal-toggle="detail-product-category-modal" class="show-product-category font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Destroy</a>
-                            <a href="#" type="button" data-url="' . route('product-category.edit', $row->pc_id) . '" data-modal-target="edit-product-category-modal" data-modal-toggle="edit-product-category-modal" class="edit-product-category font-medium px-2 text-yellow-600 dark:text-yellow-500 hover:underline">Destroy</a>
+                            <a href="#" type="button" data-url="' . route('product-category.show', $row->pc_id) . '" data-modal-target="detail-product-category-modal" data-modal-toggle="detail-product-category-modal" class="show-product-category font-medium px-2 text-cyan-600 dark:text-cyan-500 hover:underline">Detail</a>
+                            <a href="#" type="button" data-url="' . route('product-category.edit', $row->pc_id) . '" data-modal-target="edit-product-category-modal" data-modal-toggle="edit-product-category-modal" class="edit-product-category font-medium px-2 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             <a href="#" type="button" data-url="' . route('product-category.destroy', $row->pc_id) . '" data-modal-target="destroy-product-category-modal" data-modal-toggle="destroy-product-category-modal" class="destroy-product-category font-medium px-2 text-red-600 dark:text-red-500 hover:underline">Destroy</a>
                         </div>
                     ';
@@ -72,24 +79,24 @@ class ProductCategoryService {
             ->editColumn(
                 'category',
                 function ($row) {
-                    $html = '';
+                    $html = '<p>'. $row->name .'</p>';
 
-                    if ($row->level == 0)
-                        $html .= '<p>'. $row->name .'</p>';
-                    else {
-                        $parentCategory = $this->get($row->parent_id);
+                    // if ($row->level == 0)
+                    //     $html .= '<p>'. $row->name .'</p>';
+                    // else {
+                    //     $parentCategory = $this->get($row->parent_id['pc_id']);
 
-                        $html .= '
-                            <p>'. $parentCategory->name .'</p>
-                            <span class="ml-2">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-forward">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" />
-                                </svg>
-                                '. $$row->name .'
-                            </span>
-                        ';
-                    }
+                    //     $html .= '
+                    //         <p>'. $parentCategory->name .'</p> <br/>
+                    //         <span class="ml-2">
+                    //             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-forward">
+                    //                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    //                 <path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" />
+                    //             </svg>
+                    //             '. $$row->name .'
+                    //         </span>
+                    //     ';
+                    // }
 
                     return $html;
                 }
@@ -105,13 +112,13 @@ class ProductCategoryService {
             ->editColumn(
                 'keywords',
                 function ($row) {
-                    $html = '<span class="mx-2">';
+                    $html = '<div class="mx-1">';
                     foreach ($row->keywords as $word) {
                         $html .= '
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">'. $word .'</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium me-1 px-2 py-0.5 rounded-full dark:bg-gray-700 dark:text-green-400 border border-green-400">'. $word .'</span>
                         ';
                     }
-                    $html .= '</span>';
+                    $html .= '</div>';
 
                     return $html;
                 }
@@ -119,9 +126,11 @@ class ProductCategoryService {
             ->editColumn(
                 'created_by',
                 function ($row) {
+                    $user = $this->userService->get($row->created_by['uid']);
+
                     return '
-                        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                            '. $row->created_by .'
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                            '. $user->name .' <br />('. $row->created_by['uid'] .')
                         </span>
                     ';
                 }

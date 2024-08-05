@@ -18,13 +18,14 @@ class ProductCategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $getCateId = ProductCategory::where('level', 0)->select('pc_id')->get();
+        $getCateId = ProductCategory::where('level', 0)->select('pc_id')->get()->toArray();
+        $userUid = User::all()->select('uid')->toArray();
 
         $parentId = null;
-        if (! empty($getCateId)) $parentId = fake()->randomElement([null, ...$getCateId]);
+        if ($getCateId) $parentId = fake()->randomElement([null, ...$getCateId]);
 
-        $level = 1;
-        if (empty($parentId)) $level = 0;
+        $level = 0;
+        if ($parentId) $level = 1;
 
         $name = fake()->name();
         $keywords = explode(' ', $name);
@@ -38,7 +39,7 @@ class ProductCategoryFactory extends Factory
             'keywords'   =>  $keywords,
             'short_descr'   =>  fake()->text(100),
             'note'  =>  fake()->text(20),
-            'created_by'    =>  fake()->numberBetween(2, User::count()),
+            'created_by'    =>  fake()->randomElement($userUid),
         ];
     }
 }

@@ -18,8 +18,8 @@ class UserService {
             ]
         ];
     }
-    
-    public static function get(string $id): Collection|User
+
+    public function get(string $id): Collection|User
     {
         $user = User::where('uid', $id)->first();
         $key = 'user' . $user->uid;
@@ -29,7 +29,7 @@ class UserService {
         return $user;
     }
 
-    public static function getAll(): Collection|User
+    public function getAll(): Collection|User
     {
         return User::all();
     }
@@ -43,12 +43,12 @@ class UserService {
         return Cache::get($key);
     }
 
-    public static function create(array $data)
+    public function create(array $data)
     {
         //  code test
     }
 
-    public static function update(array $data, $id)
+    public function update(array $data, $id)
     {
         //  code
     }
@@ -72,12 +72,12 @@ class UserService {
         return $users;
     }
 
-    public static function search()
+    public function search()
     {
         //  code
     }
 
-    public static function filter()
+    public function filter()
     {
         //  code
     }
@@ -195,7 +195,7 @@ class UserService {
         return $res;
     }
 
-    public static function getDatatables(Collection|User $users)
+    public function getDatatables(Collection|User $users)
     {
         return Datatables::of($users)
             ->addColumn(
