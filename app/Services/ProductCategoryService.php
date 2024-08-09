@@ -26,9 +26,8 @@ class ProductCategoryService {
 
     public function get(string $id = null): Collection|ProductCategory
     {
-        $productCategory = null;
+        $productCategory = ProductCategory::all();
         if ($id) $productCategory = ProductCategory::where('pc_id', $id)->first();
-        else $productCategory = ProductCategory::all();
 
         return $productCategory;
     }

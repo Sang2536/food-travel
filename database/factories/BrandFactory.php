@@ -17,17 +17,20 @@ class BrandFactory extends Factory
      */
     public function definition(): array
     {
+        $bid = fake()->unique()->regexify('[A-Z0-9]{6}');
+        $userUid = User::all()->select('uid')->toArray();
+
         return [
-            'bid'   =>  fake()->unique()->regexify('[A-Z][0-9]{6}'),
+            'bid'   =>  $bid,
             'name'  =>  fake()->name(),
             'address' =>    fake()->address(),
             'phone' =>  fake()->phoneNumber(),
             'email' =>  fake()->email(),
-            'slug'  =>  '',
+            'slug'  =>  '/' . $bid,
             'avatar'    =>  '',
             'short_descr'   =>  fake()->text(100),
-            'note'  =>  '',
-            'created_by'    => fake()->numberBetween(3, User::count()),
+            'note'  =>  null,
+            'created_by'    => fake()->randomElement($userUid),
         ];
     }
 }

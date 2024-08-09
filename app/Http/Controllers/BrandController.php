@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BrandService;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
+    public function __construct(protected BrandService $brandService)
+    {
+        //  code
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $brands = $this->brandService->get();
+
+        if (request()->ajax()) {
+            return $this->brandService->getDatatables($brands);
+        }
+
         return view('brands/index');
     }
 
@@ -35,7 +47,12 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        return view('brands/show');
+        if(request()->ajax()) {
+            $brand = $this->brandService->get($id);
+
+            return view('brands/show', ['brand' => $brand]);
+        }
+
     }
 
     /**

@@ -118,6 +118,43 @@ $(document).ready(function () {
     });
 });
 
+/*  Brand  */
+$(document).ready(function () {
+    //  table
+    var brandTable = $('table#brand-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            method: "GET",
+            url: "/brand",
+            data: function (d) {  }
+        },
+        columnDefs: [
+            {
+                "targets": [0, 4],
+                "orderable": false,
+                "searchable": false,
+            },
+        ],
+        columns: [
+            {data: 'checkbox', name: 'checkbox'},
+            {data: 'name', name: 'name'},
+            {data: 'contact', name: 'contact'},
+            {data: 'created_by', name: 'created_by'},
+            {data: 'action', name: 'action'},
+        ],
+    });
+
+    //  detail modal
+    $(document).on('click', 'button.detail_brand', function (e) {
+        let url = $(this).data('url');
+
+        $('div#brand-modal').load(url, function() {
+            $(this).show();
+        });
+    });
+});
+
 /*  Function  */
 function destroy (selectorButton, selectorModal, selectorModalBtnSubmit, selectorModalBtnHide) {
     $(document).on('click', selectorButton, function (e) {

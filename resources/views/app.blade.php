@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Food Travel - @yield('title')</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/main.js'])
